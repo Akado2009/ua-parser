@@ -2,7 +2,6 @@ package useragent
 
 import (
 	"bytes"
-	"fmt"
 	"strings"
 )
 
@@ -118,7 +117,6 @@ func (ua *UserAgent) postParseClients() {
 		ua.clients[strings.ToLower(key)] = strings.ToLower(value)
 
 	}
-	fmt.Printf("PAERSING :%+v\n", ua.clients)
 }
 
 func (ua *UserAgent) postParseToken(token string) (k, v string) {
