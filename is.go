@@ -1,4 +1,4 @@
-package main
+package useragent
 
 func (ua *UserAgent) IsMobile() bool {
 	return ua.Device.Mobile
