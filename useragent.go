@@ -1,4 +1,4 @@
-package useragent
+package main
 
 import (
 	"bytes"
@@ -91,8 +91,8 @@ func (ua *UserAgent) Parse() {
 			} else {
 				slash = true
 			}
-		case c == 32:
-			addToken()
+		// case c == 32:
+		// 	addToken()
 		default:
 			buff.WriteByte(c)
 		}
@@ -123,6 +123,7 @@ func (ua *UserAgent) postParseToken(token string) (k, v string) {
 	separatorIndex := 0
 	strBytes := []byte(token)
 	for i := 0; i < len(strBytes)-1; i++ {
+		// ignore freeBSD/icecat
 		if isCharOrCapital(strBytes[i]) && !isCharOrCapital(strBytes[i+1]) {
 			separatorIndex = i
 			break

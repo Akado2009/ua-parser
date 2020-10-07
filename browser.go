@@ -1,4 +1,4 @@
-package useragent
+package main
 
 import (
 	"fmt"
@@ -13,10 +13,11 @@ type Browser struct {
 }
 
 // BrowserConstants
-
 var ignoredBrowser = map[string]string{
 	"mozilla": "Mozilla",
+	"chrome":  "Chrome",
 }
+
 var possibleBrowsers = map[string]string{
 	"crios":        "Chrome",
 	"opera":        "Opera",
@@ -81,7 +82,6 @@ var possibleBrowsers = map[string]string{
 	"headlesschrome":       "Chrome Headless",
 	"oculusbrowser":        "Oculus Browser",
 	"sailfishbrowser":      "Sailfish Browser",
-	"chrome":               "Chrome",
 	"omniweb":              "OmniWeb",
 	"arora":                "Arora",
 	"tizenoka":             "Tizenoka",
@@ -149,7 +149,7 @@ func (ua *UserAgent) guessBrowser() {
 	// check whether there is a version field
 	if ua.exists("version") {
 		version := strings.ReplaceAll(ua.clients["version"], "/", ".") // replace / to a dot to parse properly
-		major, minor := parseVersion(version)
+		major, minor := parseBrowserVersion(version)
 		browser.Major = major
 		browser.Minor = minor
 	}
@@ -157,7 +157,7 @@ func (ua *UserAgent) guessBrowser() {
 	// check if there is a version nearby
 	if ua.exists(browserToken) {
 		version := ua.clients[browserToken]
-		major, minor := parseVersion(version)
+		major, minor := parseBrowserVersion(version)
 		browser.Major = major
 		browser.Minor = minor
 	}
@@ -165,7 +165,7 @@ func (ua *UserAgent) guessBrowser() {
 	ua.Browser = browser
 }
 
-func parseVersion(version string) (int32, int32) {
+func parseBrowserVersion(version string) (int32, int32) {
 	versionSlice := strings.Split(version, ".")
 	major, err := strconv.Atoi(versionSlice[0])
 	if err != nil {

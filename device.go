@@ -1,7 +1,6 @@
-package useragent
+package main
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -77,6 +76,7 @@ var possibleDevices = map[string]string{
 	"nexian":          "Nexian",
 	"panasonic":       "Panasonic",
 	"nexus 9":         "Nexus 9",
+	"samsung":         "Samsung",
 }
 
 var mobileDeviceTypes = map[string]bool{
@@ -143,6 +143,7 @@ var mobileDeviceTypes = map[string]bool{
 	"nexian":          true,
 	"panasonic":       true,
 	"nexus 9":         true,
+	"samsung":         true,
 }
 
 func (ua *UserAgent) guessDevice() {
@@ -179,7 +180,6 @@ func (ua *UserAgent) guessDevice() {
 }
 
 func parsePalm(palmString string) string {
-	fmt.Println(palmString)
 	s := strings.Split(palmString, "-")
 	if len(s) == 2 {
 		return s[1]
